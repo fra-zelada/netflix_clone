@@ -1,8 +1,45 @@
+Para utilizar la app conectandose a una db mongo + docker es necesario que la bd tenga activada las réplicas (no necesario para mongo atlas), si no se activa se arrojará el siguiente error al hacer transacciones: 
+*Prisma needs to perform transactions, which requires your MongoDB server to be run as a replica set*
+
+crear archivo `docker-compose.yml` (ya adjunto en este proyecto)
+
+```
+version: '3'
+
+services:
+  db:
+    container_name: DB_NETFLIX
+    image: mongo:6.0
+    command: --replSet rs0
+    volumes:
+      - ./db_netflix:/data/db
+    ports:
+     - 27017:27017
+     - 28017:28017
+    restart: always
+```
+
 inicializar bd mongo
 
 ```
 docker compose up -d
 ```
+
+conectarse a la terminal
+```
+docker exec -it DB_NETFLIX mongosh
+```
+
+ejecutar siguiente comando
+```
+rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]})
+```
+
+reiniciar contenedor (no será necesario hacer el paso anterior nuevamente)
+
+para crear los esquemas en la bd se debe ejecutar `npx prisma db push`
+
+
 
 Conectar a bd a través de cliente `mongodb://localhost:27017/`
 
