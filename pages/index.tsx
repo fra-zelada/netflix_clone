@@ -1,4 +1,4 @@
-import { Navbar } from "@/components";
+import { Billboard, Navbar } from "@/components";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 
@@ -10,6 +10,7 @@ export default function Home({}: Props) {
     return (
         <>
             <Navbar />
+            <Billboard />
         </>
     );
 }
