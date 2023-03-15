@@ -1,16 +1,22 @@
-import { Billboard, Navbar } from "@/components";
+import { Billboard, MovieList, Navbar } from "@/components";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
+import { useMovieList } from "../hooks/useMovieList";
 
 interface Props {
     user: any;
 }
 
 export default function Home({}: Props) {
+    const { data: movies = [] } = useMovieList();
+
     return (
         <>
             <Navbar />
             <Billboard />
+            <div className="pb-40">
+                <MovieList data={movies} title={"Trending Now"} />
+            </div>
         </>
     );
 }
