@@ -1,11 +1,38 @@
-import { Inter } from "next/font/google";
+import { Navbar } from "@/components";
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
 
-const inter = Inter({ subsets: ["latin"] });
+interface Props {
+    user: any;
+}
 
-export default function Home() {
+export default function Home({}: Props) {
     return (
         <>
-            <h1 className="text-cyan-400">Netflix Clone</h1>
+            <Navbar />
         </>
     );
 }
+
+// You should use getServerSideProps when:
+// - Only if you need to pre-render a page whose data must be fetched at request time
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    const session = await getSession(ctx);
+
+    if (!session) {
+        return {
+            redirect: {
+                destination: "/auth",
+                permanent: false,
+            },
+        };
+    }
+    // const { data: user } = useCurrentUser();
+
+    return {
+        props: {
+            // user
+        },
+    };
+};
