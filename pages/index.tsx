@@ -2,6 +2,7 @@ import { Billboard, MovieList, Navbar } from "@/components";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import { useMovieList } from "../hooks/useMovieList";
+import { useFavorites } from "../hooks/useFavorites";
 
 interface Props {
     user: any;
@@ -9,6 +10,7 @@ interface Props {
 
 export default function Home({}: Props) {
     const { data: movies = [] } = useMovieList();
+    const { data: favorites = [] } = useFavorites();
 
     return (
         <>
@@ -16,6 +18,7 @@ export default function Home({}: Props) {
             <Billboard />
             <div className="pb-40">
                 <MovieList data={movies} title={"Trending Now"} />
+                <MovieList data={favorites} title={"My List"} />
             </div>
         </>
     );
