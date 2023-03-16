@@ -9,9 +9,9 @@ import { FaGithub } from "react-icons/fa";
 type variantType = "login" | "register";
 
 const Auth = () => {
-    const [email, setEmail] = useState("francisco@gmail.com");
-    const [name, setName] = useState("Francisco");
-    const [password, setPassword] = useState("147258");
+    const [email, setEmail] = useState("testing@fzelada.com");
+    const [name, setName] = useState("TestingUser");
+    const [password, setPassword] = useState("testing");
 
     const [variant, setVariant] = useState<variantType>("login");
 
@@ -19,6 +19,9 @@ const Auth = () => {
         setVariant((currentVariant) =>
             currentVariant === "login" ? "register" : "login"
         );
+        setEmail("");
+        setPassword("");
+        setName("");
     }, []);
 
     const login = useCallback(async () => {
