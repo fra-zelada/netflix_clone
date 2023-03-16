@@ -8,5 +8,6 @@ export * from "./MovieList";
 export * from "./MovieCard";
 export * from "./FavoriteButton";
 export * from "./PlayButton";
+export * from "./InfoModal";
 
 

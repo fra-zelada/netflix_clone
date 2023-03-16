@@ -1,8 +1,9 @@
-import { Billboard, MovieList, Navbar } from "@/components";
+import { Billboard, InfoModal, MovieList, Navbar } from "@/components";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import { useMovieList } from "../hooks/useMovieList";
 import { useFavorites } from "../hooks/useFavorites";
+import { useInfoModal } from "@/hooks";
 
 interface Props {
     user: any;
@@ -12,8 +13,16 @@ export default function Home({}: Props) {
     const { data: movies = [] } = useMovieList();
     const { data: favorites = [] } = useFavorites();
 
+    const { isOpen, closeModal } = useInfoModal();
+
     return (
         <>
+            <InfoModal
+                visible={isOpen}
+                onClose={() => {
+                    closeModal();
+                }}
+            />
             <Navbar />
             <Billboard />
             <div className="pb-40">
