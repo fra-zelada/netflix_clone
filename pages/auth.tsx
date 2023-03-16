@@ -11,7 +11,7 @@ type variantType = "login" | "register";
 const Auth = () => {
     const [email, setEmail] = useState("testing@fzelada.com");
     const [name, setName] = useState("TestingUser");
-    const [password, setPassword] = useState("testing");
+    const [password, setPassword] = useState("t3st1ng.&%");
 
     const [variant, setVariant] = useState<variantType>("login");
 
