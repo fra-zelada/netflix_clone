@@ -16,7 +16,10 @@ declare global {
   }
 }
 
-let prismadb: PrismaClient ;
+let prismadb ;
+// let prismadb: PrismaClient ;
+
+
 
 if (typeof window === "undefined") {
   if (process.env.NODE_ENV === "production") {
@@ -30,4 +33,4 @@ if (typeof window === "undefined") {
   }
 }
 
-export default prismadb;
+export default prismadb as PrismaClient;
