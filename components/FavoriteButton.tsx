@@ -3,6 +3,7 @@ import axios from "axios";
 import { useCurrentUser, useFavorites } from "../hooks/";
 import { FC, useCallback, useMemo } from "react";
 import { AiOutlinePlus, AiOutlineCheck } from "react-icons/ai";
+import { IUser } from "../interfaces/IUser";
 
 interface FavoriteButtonProps {
     movieId: string;
@@ -19,13 +20,13 @@ export const FavoriteButton: FC<FavoriteButtonProps> = ({ movieId }) => {
     const toggleFavorites = useCallback(async () => {
         let response;
         if (isFavorite) {
-            response = await axios.delete("/api/favorite", {
+            response = await axios.delete<IUser>("/api/favorite", {
                 data: { movieId },
             });
         } else {
-            response = await axios.post("/api/favorite", { movieId });
+            response = await axios.post<IUser>("/api/favorite", { movieId });
         }
-        const updatedFavoritesIds = response?.data?.favoriteIds;
+        const updatedFavoritesIds = response.data.favoriteIds;
 
         mutate({
             ...currentUser,

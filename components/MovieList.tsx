@@ -1,10 +1,11 @@
+import { IMovie } from "@/interfaces/IMovie";
 import { isEmpty } from "lodash";
 import { FC } from "react";
 import { MovieCard } from ".";
 import prismadb from "../lib/prismadb";
 
 interface MovieListProps {
-    data: Record<string, any>[];
+    data: IMovie[];
     title: string;
 }
 

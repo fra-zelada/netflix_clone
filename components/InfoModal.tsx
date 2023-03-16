@@ -11,7 +11,7 @@ interface InfoModalProps {
 export const InfoModal: FC<InfoModalProps> = ({ visible, onClose }) => {
     const [isVisible, setIsVisible] = useState(!!visible);
     const { movieId } = useInfoModal();
-    const { data = {} } = useMovie(movieId as string);
+    const { data } = useMovie(movieId as string);
 
     useEffect(() => {
         setIsVisible(!!visible);
