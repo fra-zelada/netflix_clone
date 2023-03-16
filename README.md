@@ -1,7 +1,34 @@
-Para utilizar la app conectandose a una db mongo + docker es necesario que la bd tenga activada las réplicas (no necesario para mongo atlas), si no se activa se arrojará el siguiente error al hacer transacciones: 
-*Prisma needs to perform transactions, which requires your MongoDB server to be run as a replica set*
+# Netflix Clone
 
-crear archivo `docker-compose.yml` (ya adjunto en este proyecto)
+![](https://res.cloudinary.com/dwvkka6mz/image/upload/v1679001456/github/Dise%C3%B1o_sin_t%C3%ADtulo_10_ll9xrh.png)
+
+
+Sitio web utilizando **React / Next.js** & **Typescript**. Se han empleado las librerías de **Tailwind CSS** para los estilos, **NextAuth** para la autenticación, **Prisma** para la creación de esquemas de BD y **Zustand** para la gestión de estados.
+
+Proyecto basado en el ejemplo del canal de Youtube de [Code With Antonio](https://www.youtube.com/watch?v=mqUN4N2q4qY&ab_channel=CodeWithAntonio) 
+
+Adicionalmente a lo del video, agregué tipado para las condiciones ternarias y el uso de interfaces para usuario y películas. El uso de **Docker**, guía para levantar el entorno y creación de API Seed para poblar los datos de prueba.
+
+
+# Configuración del entorno
+
+### 1. Crear archivo `.env`, o reenombrar el archivo `.env.TEMPLATE` a `.env` y completarlo con los siguientes valores : 
+
+| VARIABLE_NAME        | VARIABLE_VALUE                        | DESCRIPTION                                  |
+|-|-|-|
+| DATABASE_URL         | mongodb://localhost:27017/netflix_clone      | URL de BD Mongo
+| NEXTAUTH_JWT_SECRET  | mysecretkey                           | Clave secreta utilizada por NextAuth.js       |
+| NEXTAUTH_SECRET      | anothersecretkey                      | Clave secreta utilizada por NextAuth.js       |
+| GITHUB_ID            |                             | ID de aplicación de GitHub para autenticación |
+| GITHUB_SECRET        |                          | Clave secreta de aplicación de GitHub         |
+| GOOGLE_CLIENT_ID     |  | ID de cliente de Google para autenticación    |
+| GOOGLE_CLIENT_SECRET |                         | Clave secreta de cliente de Google            |
+
+
+### 2. Configurar base de datos Mongo con Docker
+Para utilizar la aplicación conectándose a una base de datos Mongo mediante Docker, es necesario que la base de datos tenga activadas las réplicas (no es necesario para Mongo Atlas). Si no se activa, se arrojará el siguiente error al hacer transacciones: "Prisma needs to perform transactions, which requires your MongoDB server to be run as a replica set".
+
+Para configurar la base de datos, crea un archivo `docker-compose.yml` en la raíz del proyecto con el siguiente contenido:
 
 ```
 version: '3'
@@ -19,67 +46,48 @@ services:
     restart: always
 ```
 
-inicializar bd mongo
+### 3. Inicializar la base de datos Mongo
+Para inicializar la base de datos, ejecuta el siguiente comando:
 
 ```
 docker compose up -d
 ```
 
-conectarse a la terminal
+### 4. Conectarse a la terminal
+Para conectarte a la terminal de la base de datos, ejecuta el siguiente comando:
 ```
 docker exec -it DB_NETFLIX mongosh
 ```
 
-ejecutar siguiente comando
+### 5. Configurar la replicación de la base de datos
+Dentro de la terminal de la base de datos, ejecuta el siguiente comando para configurar la replicación:
+
 ```
 rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]})
 ```
 
-reiniciar contenedor (no será necesario hacer el paso anterior nuevamente)
+### 6. Reiniciar el contenedor
+Reinicia el contenedor para aplicar los cambios. No será necesario hacer el paso anterior nuevamente.
 
-para crear los esquemas en la bd se debe ejecutar `npx prisma db push`
-
-
-
-Conectar a bd a través de cliente `mongodb://localhost:27017/`
-
-
-
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+### 7. Crear los esquemas en la base de datos
+Para crear los esquemas en la base de datos, ejecuta el siguiente comando desde la raiz del proyecto:
+```
+npx prisma db push
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 8. Conectar a la base de datos a través de un cliente
+Conéctate a la base de datos a través de un cliente como, por ejemplo, Mongo Compass DB, con la siguiente URL: `mongodb://localhost:27017/netflix_clone`
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### 9. Comprobar que se haya creado el esquema
+Verifica que se haya creado el esquema correctamente.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+![](https://res.cloudinary.com/dwvkka6mz/image/upload/v1679001181/github/httpsres.cloudinary.comdwvkka6mzimageuploadv1679000987Dise_C3_B1o_sin_t_C3_ADtulo_9_akmdxd.png_wnf9uo.png)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 10. Levantar la aplicación
+Levanta la aplicación local con el comando `npm run dev`. Puedes acceder a la aplicación en `http://localhost:3000/`
 
-## Learn More
+### 11. Poblar la Base de Datos
+Para poblar con los datos de prueba se debe abrir en el navegador el siguiente enlace `http://localhost:3000/api/seed`
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Listo :D
