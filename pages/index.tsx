@@ -1,9 +1,9 @@
-import { Billboard, InfoModal, MovieList, Navbar } from "@/components";
+import { MovieList } from "@/components";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import { useMovieList } from "../hooks/useMovieList";
 import { useFavorites } from "../hooks/useFavorites";
-import { useInfoModal } from "@/hooks";
+import MainLayout from "@/components/MainLayout";
 
 interface Props {
     user: any;
@@ -13,23 +13,25 @@ export default function Home({}: Props) {
     const { data: movies = [] } = useMovieList();
     const { data: favorites = [] } = useFavorites();
 
-    const { isOpen, closeModal } = useInfoModal();
-
     return (
-        <>
-            <InfoModal
-                visible={isOpen}
-                onClose={() => {
-                    closeModal();
-                }}
-            />
-            <Navbar />
-            <Billboard />
-            <div className="pb-40">
-                <MovieList data={movies} title={"Trending Now"} />
-                <MovieList data={favorites} title={"My List"} />
-            </div>
-        </>
+        <MainLayout showBillboard={true}>
+            <MovieList data={movies} title={"Trending Now"} />
+            <MovieList data={favorites} title={"My List"} />
+        </MainLayout>
+        // <>
+        //     <InfoModal
+        //         visible={isOpen}
+        //         onClose={() => {
+        //             closeModal();
+        //         }}
+        //     />
+        //     <Navbar />
+        //     <Billboard />
+        //     <div className="pb-40">
+        //         <MovieList data={movies} title={"Trending Now"} />
+        //         <MovieList data={favorites} title={"My List"} />
+        //     </div>
+        // </>
     );
 }
 

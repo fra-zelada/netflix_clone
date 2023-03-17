@@ -1,5 +1,6 @@
+import NextLink from "next/link";
 import { AccountMenu, MobileMenu, NavbarItem } from ".";
-import { BsBell, BsChevronDown, BsSearch } from "react-icons/bs";
+import { BsBell, BsChevronDown } from "react-icons/bs";
 import { useCallback, useEffect, useState } from "react";
 import { SearchButton } from "./SearchButton";
 
@@ -38,13 +39,15 @@ export const Navbar = () => {
                     showBackground ? "bg-zinc-900 bg-opacity-90" : ""
                 }`}
             >
-                <picture>
-                    <img
-                        className="h-4 lg:h-7"
-                        src="/images/logo.png"
-                        alt="logo"
-                    />
-                </picture>
+                <NextLink href={"/"} passHref>
+                    <picture>
+                        <img
+                            className="h-4 lg:h-7"
+                            src="/images/logo.png"
+                            alt="logo"
+                        />
+                    </picture>
+                </NextLink>
                 <div className="flex-row ml-8 gap-7 hidden lg:flex">
                     <NavbarItem label={"Home"} />
                     <NavbarItem label={"Series"} />
