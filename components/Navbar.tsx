@@ -1,6 +1,7 @@
 import { AccountMenu, MobileMenu, NavbarItem } from ".";
 import { BsBell, BsChevronDown, BsSearch } from "react-icons/bs";
 import { useCallback, useEffect, useState } from "react";
+import { SearchButton } from "./SearchButton";
 
 const TOP_OFFSET = 66;
 
@@ -66,7 +67,8 @@ export const Navbar = () => {
                 </div>
                 <div className="flex flex-row ml-auto gap-7 items-center">
                     <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
-                        <BsSearch />
+                        {/* <BsSearch /> */}
+                        <SearchButton />
                     </div>
                     <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
                         <BsBell />
