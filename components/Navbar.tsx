@@ -49,10 +49,10 @@ export const Navbar = () => {
                     </picture>
                 </NextLink>
                 <div className="flex-row ml-8 gap-7 hidden lg:flex">
-                    <NavbarItem label={"Home"} />
+                    <NavbarItem path="/" label={"Home"} />
                     <NavbarItem label={"Series"} />
                     <NavbarItem label={"Films"} />
-                    <NavbarItem label={"My List"} />
+                    <NavbarItem path="/myList" label={"My List"} />
                     <NavbarItem label={"New & Popular"} />
                     <NavbarItem label={"Browse by languages"} />
                 </div>
