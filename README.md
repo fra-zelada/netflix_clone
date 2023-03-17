@@ -2,17 +2,23 @@
 
 ![](https://res.cloudinary.com/dwvkka6mz/image/upload/v1679001456/github/Dise%C3%B1o_sin_t%C3%ADtulo_10_ll9xrh.png)
 
+[Live Demo](https://netflix-clone-eight-tawny.vercel.app/) 
 
 Sitio web utilizando **React / Next.js** & **Typescript**. Se han empleado las librerías de **Tailwind CSS** para los estilos, **NextAuth** para la autenticación, **Prisma** para la creación de esquemas de BD y **Zustand** para la gestión de estados.
 
 Proyecto basado en el ejemplo del canal de Youtube de [Code With Antonio](https://www.youtube.com/watch?v=mqUN4N2q4qY&ab_channel=CodeWithAntonio) 
 
-Adicionalmente a lo del video, agregué tipado para las condiciones ternarias y el uso de interfaces para usuario y películas. El uso de **Docker**, guía para levantar el entorno y creación de API Seed para poblar los datos de prueba.
+Adicionalmente a lo del video, se agregó :
+- Botón y página de búsqueda
+- Interfaces
+- Configuración de **Docker** y guía para levantar el entorno
+- API Seed para poblar datos de prueba
 
 
 # Configuración del entorno
 
-### 1. Crear archivo `.env`, o reenombrar el archivo `.env.TEMPLATE` a `.env` y completarlo con los siguientes valores : 
+### 1. Creación de variables de Entorno
+Crear archivo `.env`, o reenombrar el archivo `.env.TEMPLATE` a `.env` y completarlo con los siguientes valores : 
 
 | VARIABLE_NAME        | VARIABLE_VALUE                        | DESCRIPTION                                  |
 |-|-|-|
