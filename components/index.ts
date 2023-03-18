@@ -9,5 +9,7 @@ export * from "./MovieCard";
 export * from "./FavoriteButton";
 export * from "./PlayButton";
 export * from "./InfoModal";
+export * from "./DefaultLayout";
+export * from "./MainLayout";
 
 

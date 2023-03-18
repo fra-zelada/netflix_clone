@@ -1,7 +1,7 @@
 import { useInfoModal } from "@/hooks";
 import { FC, PropsWithChildren } from "react";
 import { Billboard, InfoModal, Navbar } from ".";
-
+import Head from "next/head";
 interface MainLayoutProps {
     showBillboard?: boolean;
 }
@@ -13,6 +13,9 @@ const MainLayout: FC<PropsWithChildren<MainLayoutProps>> = ({
     const { isOpen, closeModal } = useInfoModal();
     return (
         <>
+            <Head>
+                <title>My Netflix Clon</title>
+            </Head>
             <InfoModal
                 visible={isOpen}
                 onClose={() => {
