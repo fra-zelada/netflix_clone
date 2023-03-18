@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 type variantType = "login" | "register";
 
@@ -12,9 +13,9 @@ const Auth = () => {
     const [email, setEmail] = useState("testing@fzelada.com");
     const [name, setName] = useState("TestingUser");
     const [password, setPassword] = useState("t3st1ng.&%");
-
+    const router = useRouter();
     const [variant, setVariant] = useState<variantType>("login");
-
+    const [loginError, setLoginError] = useState<string>("");
     const toggleVariant = useCallback(() => {
         setVariant((currentVariant) =>
             currentVariant === "login" ? "register" : "login"
@@ -22,17 +23,26 @@ const Auth = () => {
         setEmail("");
         setPassword("");
         setName("");
+        setLoginError("");
     }, []);
 
     const login = useCallback(async () => {
         try {
-            await signIn("credentials", {
+            const response = await signIn("credentials", {
                 email,
                 password,
-                callbackUrl: "/profiles",
+                redirect: false,
+                // callbackUrl: "/profiles",
             });
+            if (response?.ok) router.push("/profiles");
+            else {
+                setLoginError(response?.error!);
+                setTimeout(() => {
+                    setLoginError("");
+                }, 5000);
+            }
         } catch (error) {}
-    }, [email, password]);
+    }, [email, password, router]);
 
     const register = useCallback(async () => {
         try {
@@ -53,6 +63,14 @@ const Auth = () => {
             relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover
             "
         >
+            {loginError && (
+                <div className="fixed top-0 left-1/2  z-50 m-4 p-4 bg-red-500 text-white rounded-md transform -translate-x-1/2 text-center duration-500 ease-in-out">
+                    {`${
+                        variant === "login" ? "Sign in error" : "Register error"
+                    }: ${loginError}`}
+                </div>
+            )}
+
             <div className="bg-black w-full h-full lg:bg-opacity-50">
                 <nav className="px-12 py-5">
                     <picture>
@@ -104,6 +122,7 @@ const Auth = () => {
                         >
                             {variant == "login" ? "Login" : "Register"}
                         </button>
+
                         <div className="flex flex-row items-center gap-4 mt-8 justify-center">
                             <div
                                 onClick={() =>

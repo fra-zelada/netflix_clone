@@ -60,7 +60,8 @@ export const authOptions:NextAuthOptions ={
         
     ],
     pages: {
-        signIn: '/auth'
+        signIn: '/auth',
+        error: '/auth'
     },
     debug: process.env.NODE_ENV === 'development',
     adapter: PrismaAdapter(prismadb),
